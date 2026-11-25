@@ -1,0 +1,75 @@
+{
+  "subjects": [
+    {
+      "code": "ES201",
+      "name": "Environmental Studies",
+      "year": "SY",
+      "sem": 2,
+      "credits": 3,
+      "examDate": "2026-12-05",
+      "modules": [
+        {
+          "no": 1,
+          "title": "Ecosystems",
+          "sections": [
+            { "id": "1a", "title": "Structure & function", "note": "components, trophic levels", "marks": 10, "papers": 7, "minutes": 40 },
+            { "id": "1b", "title": "Energy flow & pyramids", "note": "10% law, pyramid types", "marks": 10, "papers": 8, "minutes": 35 },
+            { "id": "1c", "title": "Food chains & cycles", "note": "webs, N/C/O cycles", "marks": 10, "papers": 6, "minutes": 40 },
+            { "id": "1d", "title": "Ecological succession", "note": "primary vs secondary", "marks": 5, "papers": 4, "minutes": 20 }
+          ]
+        },
+        {
+          "no": 2,
+          "title": "Natural Resources",
+          "sections": [
+            { "id": "2a", "title": "Forest & water resources", "note": "overexploitation, conflicts", "marks": 10, "papers": 7, "minutes": 40 },
+            { "id": "2b", "title": "Dams", "note": "benefits vs displacement", "marks": 10, "papers": 6, "minutes": 30 },
+            { "id": "2c", "title": "Mineral & energy resources", "note": "reserves, alternatives", "marks": 5, "papers": 5, "minutes": 25 },
+            { "id": "2d", "title": "Soil erosion & land degradation", "note": "causes, control", "marks": 5, "papers": 4, "minutes": 20 }
+          ]
+        },
+        {
+          "no": 3,
+          "title": "Biodiversity",
+          "sections": [
+            { "id": "3a", "title": "Levels & hotspots", "note": "genetic, species, ecosystem", "marks": 10, "papers": 9, "minutes": 40 },
+            { "id": "3b", "title": "Threats", "note": "habitat loss, poaching, invasive", "marks": 10, "papers": 8, "minutes": 35 },
+            { "id": "3c", "title": "In-situ & ex-situ conservation", "note": "parks, banks, breeding", "marks": 10, "papers": 7, "minutes": 35 },
+            { "id": "3d", "title": "India's protected areas", "note": "acts and categories", "marks": 5, "papers": 4, "minutes": 20 }
+          ]
+        },
+        {
+          "no": 4,
+          "title": "Environmental Pollution",
+          "sections": [
+            { "id": "4a", "title": "Air pollution", "note": "sources, effects, control", "marks": 10, "papers": 9, "minutes": 45 },
+            { "id": "4b", "title": "Water pollution", "note": "BOD, COD, treatment", "marks": 10, "papers": 8, "minutes": 40 },
+            { "id": "4c", "title": "Solid waste management", "note": "segregation, disposal", "marks": 5, "papers": 6, "minutes": 25 },
+            { "id": "4d", "title": "Noise & thermal pollution", "note": "standards, effects", "marks": 5, "papers": 4, "minutes": 20 }
+          ]
+        },
+        {
+          "no": 5,
+          "title": "Social Issues & Environment",
+          "sections": [
+            { "id": "5a", "title": "Sustainable development", "note": "SDGs, equity", "marks": 10, "papers": 8, "minutes": 35 },
+            { "id": "5b", "title": "Climate change", "note": "causes, impacts, mitigation", "marks": 10, "papers": 9, "minutes": 45 },
+            { "id": "5c", "title": "Environmental legislation", "note": "key Indian acts", "marks": 5, "papers": 6, "minutes": 25 },
+            { "id": "5d", "title": "Urbanisation & resettlement", "note": "slums, rehabilitation", "marks": 5, "papers": 4, "minutes": 20 }
+          ]
+        },
+        {
+          "no": 6,
+          "title": "Sustainable Practices",
+          "sections": [
+            { "id": "6a", "title": "Energy resources", "note": "renewable vs non-renewable", "marks": 10, "papers": 8, "minutes": 45 },
+            { "id": "6b", "title": "Consumption by region", "note": "developed / developing / underdeveloped", "marks": 5, "papers": 3, "minutes": 15 },
+            { "id": "6c", "title": "NRM & environmental ethics", "note": "key terms, principles", "marks": 10, "papers": 6, "minutes": 35 },
+            { "id": "6d", "title": "Responsible consumption", "note": "why it matters, how to practise", "marks": 5, "papers": 5, "minutes": 25 },
+            { "id": "6e", "title": "Energy audit", "note": "definition, types, importance", "marks": 10, "papers": 7, "minutes": 40 }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e3]:
+    - heading "Track" [level=1] [ref=f1e4]
+    - paragraph [ref=f1e5]: Nothing outstanding.
+    - group [ref=f1e6]:
+      - generic "Add assignment" [ref=f1e7] [cursor=pointer]
+      - option "Environmental Studies" [selected]
+    - list
+  - navigation "Sections" [ref=f1e9]:
+    - generic [ref=f1e10]:
+      - link "Today" [ref=f1e11] [cursor=pointer]:
+        - /url: /
+      - link "Study" [ref=f1e19] [cursor=pointer]:
+        - /url: /study/
+      - link "Track" [ref=f1e23] [cursor=pointer]:
+        - /url: /track/
+      - link "Settings" [ref=f1e28] [cursor=pointer]:
+        - /url: /settings/

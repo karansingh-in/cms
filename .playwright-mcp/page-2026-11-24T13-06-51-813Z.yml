@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - link "Environmental Studies" [ref=e4] [cursor=pointer]:
+      - /url: /study/ES201/
+    - heading "6Sustainable Practices" [level=1] [ref=e5]
+    - paragraph [ref=e6]: 11 days to the paper · 2h 40m
+    - paragraph [ref=e7]: 2h 40m of material. 2 sections decide your paper.
+    - paragraph [ref=e14]: How the study time splits across sections
+    - list [ref=e15]:
+      - listitem [ref=e16]:
+        - generic [ref=e17]:
+          - paragraph [ref=e18]: 1Energy resources
+          - generic [ref=e19]: 45m
+        - paragraph [ref=e20]: renewable vs non-renewable
+        - paragraph [ref=e21]: 8 of 10 papers · 32% of the paper
+      - listitem [ref=e22]:
+        - generic [ref=e23]:
+          - paragraph [ref=e24]: 2Energy audit
+          - generic [ref=e25]: 40m
+        - paragraph [ref=e26]: definition, types, importance
+        - paragraph [ref=e27]: 7 of 10 papers · 28% of the paper
+      - listitem [ref=e28]:
+        - generic [ref=e29]:
+          - paragraph [ref=e30]: 3NRM & environmental ethics
+          - generic [ref=e31]: 35m
+        - paragraph [ref=e32]: key terms, principles
+        - paragraph [ref=e33]: 6 of 10 papers · 24% of the paper
+      - listitem [ref=e34]:
+        - generic [ref=e35]:
+          - paragraph [ref=e36]: 4Responsible consumption
+          - generic [ref=e37]: 25m
+        - paragraph [ref=e38]: why it matters, how to practise
+        - paragraph [ref=e39]: 5 of 10 papers · 10% of the paper
+      - listitem [ref=e40]:
+        - generic [ref=e41]:
+          - paragraph [ref=e42]: 5Consumption by region
+          - generic [ref=e43]: 15m
+        - paragraph [ref=e44]: developed / developing / underdeveloped
+        - paragraph [ref=e45]: 3 of 10 papers · 6% of the paper
+    - region "Do not study these" [ref=e46]:
+      - heading "Do not study these" [level=2] [ref=e47]
+      - list [ref=e48]:
+        - listitem [ref=e49]:
+          - generic [ref=e50]: Consumption by region
+          - generic [ref=e51]: 15m
+      - paragraph [ref=e52]: Saves 15m and risks at most 2 marks.
+    - button "Start on Energy resources" [ref=e55]
+  - navigation "Sections" [ref=e56]:
+    - generic [ref=e57]:
+      - link "Today" [ref=e58] [cursor=pointer]:
+        - /url: /
+      - link "Study" [ref=e66] [cursor=pointer]:
+        - /url: /study/
+      - link "Track" [ref=e70] [cursor=pointer]:
+        - /url: /track/
+      - link "Settings" [ref=e75] [cursor=pointer]:
+        - /url: /settings/

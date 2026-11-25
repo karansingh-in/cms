@@ -1,0 +1,89 @@
+{
+  "sessions": [
+    {
+      "id": "dd81715c-87f8-4929-aa8e-ea2d5163f085",
+      "subject": "ES201",
+      "startedAt": "2026-11-24T13:05:25.461Z",
+      "endedAt": "2026-11-24T13:06:08.318Z",
+      "studyDay": "2026-11-24"
+    },
+    {
+      "id": "ecc00b4c-03a8-4860-a39e-406db46f4b36",
+      "subject": "ES201",
+      "startedAt": "2026-11-24T15:16:20.724Z",
+      "endedAt": "2026-11-24T15:16:43.478Z",
+      "studyDay": "2026-11-24"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "0c353225-8e49-45f4-8f5d-28d224ae03db",
+      "title": "Journal review",
+      "course": "Environmental Studies",
+      "dueDay": "2026-11-27",
+      "done": false
+    },
+    {
+      "id": "bf587731-c308-489b-9440-acec508ccd2d",
+      "title": "Lab record",
+      "course": "Environmental Studies",
+      "dueDay": "2026-12-01",
+      "done": false
+    },
+    {
+      "id": "b177d5c2-7648-430e-8240-702c3f009fea",
+      "title": "Read module 3 notes",
+      "course": null,
+      "dueDay": "2026-11-26",
+      "done": false
+    }
+  ],
+  "courses": [
+    {
+      "id": "c359f3dc-c23b-4fc6-b9cf-4402f5ea6216",
+      "name": "Environmental Studies",
+      "credits": 4,
+      "target": 85
+    }
+  ],
+  "assessments": [
+    {
+      "courseId": "c359f3dc-c23b-4fc6-b9cf-4402f5ea6216",
+      "title": "Midterm",
+      "weight": 40,
+      "score": 30,
+      "max": 50,
+      "dueDay": null,
+      "id": "cecbb042-7907-4074-a19c-a053753bba6a"
+    },
+    {
+      "courseId": "c359f3dc-c23b-4fc6-b9cf-4402f5ea6216",
+      "title": "Final exam",
+      "weight": 60,
+      "score": null,
+      "max": 100,
+      "dueDay": "2026-12-01",
+      "id": "e28d2027-b6a4-4747-b80b-8850a70f99b0"
+    }
+  ],
+  "cards": [
+    {
+      "id": "accea151-f535-4aa4-8bc5-f29b3754ad31",
+      "front": "What does the precautionary principle say?",
+      "back": "Lack of certainty is not a reason to postpone action when harm is serious.",
+      "course": null,
+      "dueDay": "2026-11-26",
+      "interval": 1,
+      "ease": 2.5
+    }
+  ],
+  "logs": [
+    {
+      "id": "91088c13-af7b-4f7a-99e0-4cffe21b6977",
+      "text": "Wrote the target-grade calculator and tested it",
+      "category": "Project",
+      "link": "https://example.com/notes",
+      "day": "2026-11-25"
+    }
+  ]
+}

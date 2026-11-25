@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamTriage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:          #1a1a1a;
+    --white:        #fafaf8;
+    --muted:        #6b6b6b;
+    --border:       #d8d8d4;
+    --border-light: #efefeb;
+    --accent:       #2a4a3e;
+    --accent-light: #edf3f0;
+    --warn:         #7a4a00;
+    --warn-light:   #fef6e4;
+    --bg-soft:      #f7f7f5;
+  }
+  html { font-size: 16px; }
+  body { background: var(--white); color: var(--ink); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; background: var(--white); border-bottom: 1px solid var(--border-light); z-index: 100; }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+  .nav-logo span { color: var(--accent); }
+  .nav-signin { font-size: 12px; font-family: 'DM Mono', monospace; padding: 6px 14px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--ink); cursor: pointer; transition: all 0.15s; }
+  .nav-signin:hover { background: var(--ink); color: var(--white); }
+
+  .page { display: none; padding-top: 52px; }
+  .page.active { display: block; }
+
+  /* LANDING */
+  .hero { min-height: calc(100vh - 52px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; max-width: 860px; margin: 0 auto; padding: 5rem 2rem 4rem; width: 100%; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--muted); }
+  .hero-title { font-family: 'Fraunces', Georgia, serif; font-size: clamp(42px, 6vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 16px; color: var(--muted); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; font-weight: 300; }
+  .btn-primary { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; padding: 12px 28px; background: var(--ink); color: var(--white); border: none; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+  .btn-primary:hover { background: var(--accent); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border-light); width: 100%; }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 300; color: var(--ink); letter-spacing: -0.02em; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+  footer { border-top: 1px solid var(--border-light); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+
+  /* APP */
+  #app { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 6rem; width: 100%; }
+  .app-header { margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: flex-end; justify-content: space-between; }
+  .app-title { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 300; color: var(--ink); letter-spacing: -0.02em; }
+  .app-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+
+  .selector-stack { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .select-wrap { position: relative; }
+  .select-wrap::after { content: '↓'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); pointer-events: none; }
+  .field-select { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 300; padding: 11px 36px 11px 14px; border: 1px solid var(--border); border-radius: 4px; background: var(--white); color: var(--ink); appearance: none; -webkit-appearance: none; transition: border-color 0.15s; width: 100%; outline: none; cursor: pointer; }
+  .field-select:focus { border-color: var(--ink); }
+  .field-select:disabled { opacity: 0.4; cursor: not-allowed; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .days-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border: 1px solid var(--border-light); border-radius: 4px; background: var(--bg-soft); margin-bottom: 1.5rem; }
+  .days-text { font-size: 14px; color: var(--ink); }
+  .days-text small { display: block; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .days-controls { display: flex; align-items: center; gap: 12px; }
+  .days-btn { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 4px; background: var(--white); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: 'DM Mono', monospace; color: var(--ink); user-select: none; }
+  .days-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .days-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; color: var(--ink); min-width: 28px; text-align: center; }
+  .days-unit { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+
+  .output-preview { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .output-tag { font-family: 'DM Mono', monospace; font-size: 11px; padding: 5px 12px; border: 1px solid var(--border-light); border-radius: 4px; color: var(--muted); background: var(--bg-soft); display: flex; align-items: center; gap: 6px; }
+  .output-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .generate-btn { width: 100%; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; padding: 14px; background: var(--ink); color: var(--white); border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .generate-btn:hover { background: var(--accent); }
+  .arrow { transition: transform 0.2s; display: inline-block; }
+  .generate-btn:hover .arrow { transform: translateX(4px); }
+
+  #loading { display: none; flex-direction: column; align-items: center; padding: 6rem 2rem; text-align: center; }
+  #loading.active { display: flex; }
+  .loading-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+  .loading-bar { width: 200px; height: 1px; background: var(--border-light); position: relative; overflow: hidden; margin-bottom: 2rem; }
+  .loading-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--ink); animation: slide 1.2s ease-in-out infinite; }
+  @keyframes slide { 0% { left: -100%; } 100% { left: 100%; } }
+  .loading-msg { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; color: var(--ink); font-style: italic; }
+
+  #results { display: none; }
+  #results.active { display: block; }
+  .results-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); }
+  .results-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+  .results-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); text-align: right; line-height: 1.8; }
+  .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.75rem; }
+
+  .triage-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  .triage-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 400; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border-light); }
+  .triage-table td { padding: 13px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; font-size: 13px; }
+  .triage-table tr:last-child td { border-bottom: none; }
+  .triage-table tr:hover td { background: var(--bg-soft); }
+  .chapter-name { font-weight: 400; color: var(--ink); }
+  .chapter-note { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: 'DM Mono', monospace; }
+  .badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; white-space: nowrap; }
+  .badge-high { background: var(--accent-light); color: var(--accent); }
+  .badge-medium { background: var(--warn-light); color: var(--warn); }
+  .badge-low { background: var(--bg-soft); color: var(--muted); }
+  .time-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink); }
+  .why-txt { font-size: 11px; color: var(--muted); }
+
+  .total-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--bg-soft); border-radius: 4px; margin-bottom: 2rem; }
+  .total-row-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .total-row-val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--ink); }
+  .section-divider { height: 1px; background: var(--border-light); margin: 1.5rem 0; }
+
+  .cheatsheet-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem; }
+  .cs-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--ink); color: var(--white); }
+  .cs-topbar-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 300; font-style: italic; }
+  .cs-topbar-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .cs-body { padding: 1.25rem; }
+  .cs-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
+  .cs-section-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-bottom: 6px; border-bottom: 1px solid var(--border-light); margin-bottom: 8px; }
+  .cs-list { list-style: none; }
+  .cs-list li { font-size: 12px; color: var(--ink); padding: 3px 0 3px 14px; position: relative; line-height: 1.5; }
+  .cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+  .cs-list li b { font-weight: 500; }
+  .def-row { display: flex; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--border-light); font-size: 12px; }
+  .def-row:last-child { border-bottom: none; }
+  .def-term { font-weight: 500; min-width: 120px; color: var(--ink); flex-shrink: 0; }
+  .def-val { color: var(--muted); }
+  .cs-takeaway { margin-top: 1rem; padding: 10px 14px; background: var(--accent-light); border-radius: 4px; font-size: 12px; color: var(--accent); line-height: 1.6; }
+
+  .dl-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.75rem; }
+  .dl-btn { font-family: 'DM Mono', monospace; font-size: 12px; padding: 12px; background: transparent; color: var(--ink); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .dl-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .dl-btn.primary { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .dl-btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+  .new-session-btn { width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; padding: 11px; background: transparent; color: var(--muted); border: 1px solid var(--border-light); border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+  .new-session-btn:hover { color: var(--ink); border-color: var(--border); }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(14,14,14,0.6); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: var(--white); border-radius: 8px; padding: 2rem; width: 340px; text-align: center; animation: fadeUp 0.2s ease both; }
+  .modal-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; margin-bottom: 0.5rem; color: var(--ink); }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+  .google-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 11px; border: 1px solid var(--border); border-radius: 4px; background: var(--white); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--ink); transition: all 0.15s; margin-bottom: 0.75rem; }
+  .google-btn:hover { background: var(--bg-soft); }
+  .modal-close { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; transition: color 0.15s; }
+  .modal-close:hover { color: var(--ink); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { animation: fadeUp 0.35s ease both; }
+
+  @media (max-width: 600px) {
+    .two-col, .cs-cols, .dl-row { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+  @media print {
+    nav, .section-eyebrow, .triage-table, .total-row, .dl-row, .new-session-btn, .results-header, footer { display: none !important; }
+    .cheatsheet-card { border: 1px solid #ccc; }
+    #results { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">exam<span>triage</span></div>
+  <div class="nav-right">
+    <button class="nav-signin" onclick="showModal()">sign in</button>
+  </div>
+</nav>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">Welcome back</div>
+    <div class="modal-sub">Sign in to save sessions and access past cheatsheets.</div>
+    <button class="google-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <button class="modal-close" onclick="hideModal()">maybe later</button>
+  </div>
+</div>
+
+<!-- LANDING -->
+<div class="page active" id="landing">
+  <div class="hero">
+    <div class="hero-eyebrow">Mumbai University · AI &amp; Data Science</div>
+    <h1 class="hero-title">Stop studying<br>everything.<br>Study what <em>matters.</em></h1>
+    <p class="hero-sub">Select your subject and chapter. Tell us how many days you have. Get a triage plan, cheatsheet, and detailed notes PDF — all in one shot.</p>
+    <button class="btn-primary" onclick="showApp()">get started →</button>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">clicks to start</span></div>
+      <div class="stat-item"><span class="stat-num">~30s</span><span class="stat-label">to full output</span></div>
+      <div class="stat-item"><span class="stat-num">free</span><span class="stat-label">always</span></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">examtriage · Mumbai University</div>
+    <div class="footer-right">built for students, by a student</div>
+  </footer>
+</div>
+
+<!-- APP -->
+<div class="page" id="app-page">
+  <div id="app">
+
+    <div id="input-form">
+      <div class="app-header">
+        <div class="app-title">Select your chapter</div>
+        <div class="app-sub">MU · AI &amp; DS</div>
+      </div>
+
+      <div class="selector-stack">
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Year</label>
+            <div class="select-wrap">
+              <select class="field-select" id="sel-year" onchange="updateSem()">
+                <option value="">Select year</option>
+                <option value="fy">FY — First Year</option>
+                <option value="sy">SY — Second Year</option>
+                <option value="ty">TY — Third Year</option>
+                <option value="ly">LY — Fourth Year</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Semester</label>
+            <div class="select-wrap">
+              <select class="field-select" id="sel-sem" onchange="updateSubjects()" disabled>
+                <option value="">Select semester</option>
+                <option value="1">Semester I</option>
+                <option value="2">Semester II</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Subject</label>
+          <div class="select-wrap">
+            <select class="field-select" id="sel-subject" onchange="updateModules()" disabled>
+              <option value="">Select subject</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Module / Chapter</label>
+          <div class="select-wrap">
+            <select class="field-select" id="sel-module" disabled>
+              <option value="">Select module</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="days-row">
+        <div class="days-text">
+          Days until exam
+          <small>we'll calculate total time needed</small>
+        </div>
+        <div class="days-controls">
+          <button class="days-btn" onclick="changeDays(-1)">−</button>
+          <div class="days-val" id="days-val">3</div>
+          <div class="days-unit">days</div>
+          <button class="days-btn" onclick="changeDays(1)">+</button>
+        </div>
+      </div>
+
+      <div class="output-preview">
+        <div class="output-tag"><span class="dot"></span>triage sheet</div>
+        <div class="output-tag"><span class="dot"></span>cheatsheet</div>
+        <div class="output-tag"><span class="dot"></span>detailed notes pdf</div>
+      </div>
+
+      <button class="generate-btn" onclick="generate()">
+        Generate <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <div id="loading">
+      <div class="loading-label">ANALYZING CONTENT</div>
+      <div class="loading-bar"></div>
+      <div class="loading-msg" id="loading-msg">Reading the chapter...</div>
+    </div>
+
+    <div id="results">
+      <div class="results-header fade-up">
+        <div class="results-title">Module 6 — Sustainable Practices</div>
+        <div class="results-meta">Environmental Studies · SY Sem II<br>Theory only · No numericals detected</div>
+      </div>
+
+      <div class="section-eyebrow fade-up">Triage sheet</div>
+      <table class="triage-table fade-up">
+        <thead>
+          <tr>
+            <th style="width:38%">Section</th>
+            <th style="width:18%">Priority</th>
+            <th style="width:16%">Time</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="chapter-name">A. Energy Resources</div><div class="chapter-note">renewable vs non-renewable</div></td>
+            <td><span class="badge badge-high">High</span></td>
+            <td><span class="time-val">~45 min</span></td>
+            <td><span class="why-txt">Core distinction, guaranteed question</span></td>
+          </tr>
+          <tr>
+            <td><div class="chapter-name">E. Energy Audit</div><div class="chapter-note">definition, types, importance</div></td>
+            <td><span class="badge badge-high">High</span></td>
+            <td><span class="time-val">~40 min</span></td>
+            <td><span class="why-txt">High frequency in past papers</span></td>
+          </tr>
+          <tr>
+            <td><div class="chapter-name">C. NRM &amp; Env. Ethics</div><div class="chapter-note">key terms, principles</div></td>
+            <td><span class="badge badge-medium">Medium</span></td>
+            <td><span class="time-val">~35 min</span></td>
+            <td><span class="why-txt">Definitions over depth</span></td>
+          </tr>
+          <tr>
+            <td><div class="chapter-name">D. Responsible Consumption</div><div class="chapter-note">why it matters, how to practice</div></td>
+            <td><span class="badge badge-medium">Medium</span></td>
+            <td><span class="time-val">~25 min</span></td>
+            <td><span class="why-txt">Short answer likely</span></td>
+          </tr>
+          <tr>
+            <td><div class="chapter-name">B. Consumption by Region</div><div class="chapter-note">developed / developing / underdeveloped</div></td>
+            <td><span class="badge badge-low">Skim only</span></td>
+            <td><span class="time-val">~15 min</span></td>
+            <td><span class="why-txt">Supportive only, don't overinvest</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-row fade-up">
+        <span class="total-row-label">Total study time needed</span>
+        <span class="total-row-val">2 hrs 40 min</span>
+      </div>
+
+      <div class="section-divider"></div>
+      <div class="section-eyebrow fade-up">Quick cheatsheet</div>
+
+      <div class="cheatsheet-card fade-up">
+        <div class="cs-topbar">
+          <div class="cs-topbar-title">Module 6 · Sustainable Practices</div>
+          <div class="cs-topbar-tag">examtriage.in</div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-cols">
+            <div>
+              <div class="cs-section-title">Renewable energy</div>
+              <ul class="cs-list">
+                <li><b>Solar</b> — sun's rays, solar panels, clean &amp; wide</li>
+                <li><b>Wind</b> — turbines, no emissions, open/coastal</li>
+                <li><b>Hydro</b> — rivers/dams, renewable, disrupts aquatic life</li>
+                <li><b>Biomass</b> — organic waste, renewable if managed</li>
+                <li><b>Geothermal</b> — Earth's heat, volcanic regions</li>
+              </ul>
+              <div class="cs-section-title" style="margin-top:1rem">Non-renewable</div>
+              <ul class="cs-list">
+                <li><b>Fossil fuels</b> — coal, oil, gas → pollution + warming</li>
+                <li><b>Nuclear</b> — uranium, low emissions, radioactive waste</li>
+              </ul>
+              <div class="cs-section-title" style="margin-top:1rem">By region</div>
+              <ul class="cs-list">
+                <li><b>Developed</b> — high usage, fossil fuel heavy</li>
+                <li><b>Developing</b> — growing demand, mixed sources</li>
+                <li><b>Underdeveloped</b> — biomass dependent, low access</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cs-section-title">Key definitions</div>
+              <div class="def-row"><span class="def-term">NRM</span><span class="def-val">Managing land, water, forests sustainably</span></div>
+              <div class="def-row"><span class="def-term">Env. Ethics</span><span class="def-val">Moral principles on relationship with nature</span></div>
+              <div class="def-row"><span class="def-term">Resp. Consumption</span><span class="def-val">Using resources mindfully, no env. harm</span></div>
+              <div class="def-row"><span class="def-term">Energy Audit</span><span class="def-val">Systematic process to evaluate energy use</span></div>
+              <div class="def-row"><span class="def-term">Circular Economy</span><span class="def-val">Reduce, reuse, recycle</span></div>
+              <div class="def-row"><span class="def-term">Intergenerational Equity</span><span class="def-val">Preserving Earth for future generations</span></div>
+              <div class="cs-section-title" style="margin-top:1rem">Energy audit — types</div>
+              <ul class="cs-list">
+                <li><b>Preliminary</b> — quick check, bills + appliances</li>
+                <li><b>Detailed</b> — in-depth, data logging, cost analysis</li>
+                <li><b>Internal</b> — org's own staff</li>
+                <li><b>External</b> — outside agent</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cs-takeaway">Key takeaway — Sustainable practices = energy availability + responsible consumption + NRM + environmental ethics + energy audits. Holistic, not isolated.</div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+      <div class="section-eyebrow fade-up">Downloads</div>
+      <div class="dl-row fade-up">
+        <button class="dl-btn primary">↓ detailed notes pdf</button>
+        <button class="dl-btn" onclick="window.print()">↓ print cheatsheet</button>
+      </div>
+      <button class="new-session-btn" onclick="newSession()">← new session</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const DATA = {
+    fy:{1:{"Engineering Mathematics I":["Module 1: Matrices","Module 2: Differentiation","Module 3: Integration","Module 4: Complex Numbers","Module 5: Differential Equations"],"Engineering Physics":["Module 1: Quantum Mechanics","Module 2: Wave Optics","Module 3: Lasers & Fiber Optics","Module 4: Semiconductors","Module 5: Superconductivity"],"Environmental Studies":["Module 1: Ecosystems","Module 2: Natural Resources","Module 3: Biodiversity","Module 4: Environmental Pollution","Module 5: Social Issues","Module 6: Sustainable Practices"],"Basic Electrical Engineering":["Module 1: DC Circuits","Module 2: AC Circuits","Module 3: Transformers","Module 4: DC Machines","Module 5: AC Machines"],"C Programming":["Module 1: Basics","Module 2: Control Structures","Module 3: Arrays & Strings","Module 4: Functions","Module 5: Pointers","Module 6: Files"]},2:{"Engineering Mathematics II":["Module 1: Laplace Transform","Module 2: Fourier Series","Module 3: Vector Calculus","Module 4: Linear Algebra","Module 5: Statistics"],"Engineering Chemistry":["Module 1: Polymers","Module 2: Electrochemistry","Module 3: Fuels","Module 4: Water Technology","Module 5: Corrosion"]}},
+    sy:{1:{"Data Structures":["Module 1: Arrays & Linked Lists","Module 2: Stacks & Queues","Module 3: Trees","Module 4: Graphs","Module 5: Sorting & Searching","Module 6: Hashing"],"Discrete Mathematics":["Module 1: Set Theory","Module 2: Logic & Proofs","Module 3: Relations & Functions","Module 4: Graph Theory","Module 5: Combinatorics","Module 6: Algebraic Structures"],"Digital Electronics":["Module 1: Number Systems","Module 2: Boolean Algebra","Module 3: Combinational Circuits","Module 4: Sequential Circuits","Module 5: Memory & PLDs"],"Object Oriented Programming (Java)":["Module 1: OOP Concepts","Module 2: Classes & Objects","Module 3: Inheritance","Module 4: Interfaces & Packages","Module 5: Exception Handling","Module 6: Collections & I/O"]},2:{"Environmental Studies":["Module 1: Ecosystems","Module 2: Natural Resources","Module 3: Biodiversity","Module 4: Environmental Pollution","Module 5: Social Issues","Module 6: Sustainable Practices"],"Database Management Systems":["Module 1: ER Model","Module 2: Relational Model","Module 3: SQL","Module 4: Normalization","Module 5: Transactions & Concurrency","Module 6: NoSQL"],"Computer Networks":["Module 1: Network Models","Module 2: Physical Layer","Module 3: Data Link Layer","Module 4: Network Layer","Module 5: Transport Layer","Module 6: Application Layer"],"Mathematics for AI":["Module 1: Linear Algebra","Module 2: Probability","Module 3: Statistics","Module 4: Calculus for ML","Module 5: Optimization"]}},
+    ty:{1:{"Machine Learning":["Module 1: Intro & Linear Regression","Module 2: Classification Algorithms","Module 3: Decision Trees & Ensembles","Module 4: Unsupervised Learning","Module 5: SVM & Kernel Methods","Module 6: Model Evaluation"],"Data Warehousing & Mining":["Module 1: Data Preprocessing","Module 2: Association Rules","Module 3: Classification","Module 4: Clustering","Module 5: Data Warehouse Architecture","Module 6: OLAP"],"Software Engineering":["Module 1: SDLC Models","Module 2: Requirements Engineering","Module 3: Design Principles","Module 4: Testing","Module 5: Project Management","Module 6: Agile & DevOps"],"Operating Systems":["Module 1: Process Management","Module 2: CPU Scheduling","Module 3: Memory Management","Module 4: File Systems","Module 5: I/O Systems","Module 6: Security"]},2:{"Deep Learning":["Module 1: Neural Networks","Module 2: CNNs","Module 3: RNNs & LSTMs","Module 4: Transformers","Module 5: Generative Models","Module 6: Transfer Learning"],"Natural Language Processing":["Module 1: Text Processing","Module 2: Language Models","Module 3: Sequence Models","Module 4: Attention Mechanisms","Module 5: NER & POS Tagging","Module 6: Applications"],"Computer Vision":["Module 1: Image Processing","Module 2: Feature Extraction","Module 3: Object Detection","Module 4: Segmentation","Module 5: 3D Vision","Module 6: Video Analysis"],"Big Data Analytics":["Module 1: Hadoop Ecosystem","Module 2: MapReduce","Module 3: Apache Spark","Module 4: Kafka & Streaming","Module 5: Data Lakes","Module 6: Visualization"]}},
+    ly:{1:{"Artificial Intelligence":["Module 1: Search Algorithms","Module 2: Knowledge Representation","Module 3: Inference & Reasoning","Module 4: Planning","Module 5: Multi-Agent Systems","Module 6: AI Ethics"],"Cloud Computing":["Module 1: Cloud Fundamentals","Module 2: Virtualization","Module 3: AWS & Azure","Module 4: Containers & Kubernetes","Module 5: Serverless","Module 6: Security & Compliance"],"Reinforcement Learning":["Module 1: MDPs & Bellman Equations","Module 2: Q-Learning","Module 3: Policy Gradient","Module 4: Actor-Critic","Module 5: Deep RL","Module 6: Applications"]},2:{"MLOps & Production ML":["Module 1: ML Pipelines","Module 2: Model Versioning","Module 3: CI/CD for ML","Module 4: Monitoring & Drift","Module 5: A/B Testing","Module 6: Responsible AI"],"Information Security":["Module 1: Cryptography","Module 2: Network Security","Module 3: Web Security","Module 4: Intrusion Detection","Module 5: Digital Forensics","Module 6: Legal & Compliance"]}}
+  };
+
+  let days = 3;
+
+  function showApp() { document.getElementById('landing').classList.remove('active'); document.getElementById('app-page').classList.add('active'); window.scrollTo(0,0); }
+  function showModal() { document.getElementById('modal').classList.add('active'); }
+  function hideModal() { document.getElementById('modal').classList.remove('active'); }
+  document.getElementById('modal').addEventListener('click', e => { if(e.target === document.getElementById('modal')) hideModal(); });
+  function changeDays(d) { days = Math.max(1, Math.min(30, days + d)); document.getElementById('days-val').textContent = days; }
+
+  function updateSem() {
+    const year = document.getElementById('sel-year').value;
+    const s = document.getElementById('sel-sem');
+    s.disabled = !year; s.value = '';
+    resetField('sel-subject','Select subject'); resetField('sel-module','Select module');
+  }
+  function updateSubjects() {
+    const year = document.getElementById('sel-year').value;
+    const sem = document.getElementById('sel-sem').value;
+    const s = document.getElementById('sel-subject');
+    s.innerHTML = '<option value="">Select subject</option>';
+    resetField('sel-module','Select module');
+    if (!year || !sem) { s.disabled = true; return; }
+    Object.keys(DATA[year]?.[sem] || {}).forEach(k => { const o = document.createElement('option'); o.value = k; o.textContent = k; s.appendChild(o); });
+    s.disabled = false;
+  }
+  function updateModules() {
+    const year = document.getElementById('sel-year').value;
+    const sem = document.getElementById('sel-sem').value;
+    const subj = document.getElementById('sel-subject').value;
+    const s = document.getElementById('sel-module');
+    s.innerHTML = '<option value="">Select module</option>';
+    if (!subj) { s.disabled = true; return; }
+    (DATA[year]?.[sem]?.[subj] || []).forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; s.appendChild(o); });
+    s.disabled = false;
+  }
+  function resetField(id, placeholder) {
+    const el = document.getElementById(id);
+    el.innerHTML = `<option value="">${placeholder}</option>`;
+    el.disabled = true; el.value = '';
+  }
+
+  const msgs = ['Reading the chapter...','Identifying exam-relevant content...','Ranking sections by priority...','Building cheatsheet...','Compiling detailed notes...','Almost there...'];
+  function generate() {
+    document.getElementById('input-form').style.display = 'none';
+    const l = document.getElementById('loading'); l.classList.add('active');
+    let i = 0;
+    const iv = setInterval(() => { document.getElementById('loading-msg').textContent = msgs[i++ % msgs.length]; }, 900);
+    setTimeout(() => { clearInterval(iv); l.classList.remove('active'); document.getElementById('results').classList.add('active'); window.scrollTo(0,0); }, 4500);
+  }
+  function newSession() {
+    document.getElementById('results').classList.remove('active');
+    document.getElementById('input-form').style.display = 'block';
+    window.scrollTo(0,0);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules
+.next
+.data
+.env*.local
+.env
+*.tsbuildinfo
+next-env.d.ts
+
+.playwright-mcp
+*.png

@@ -21,7 +21,7 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
   const best = target ? target.earned + target.remainingWeight : 0;
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <Link href="/grades" className="text-[13px] text-ink-3">
         Grades
       </Link>
@@ -32,9 +32,9 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
         {course.credits > 0 && ` · ${course.credits} credits`}
       </p>
 
-      <section className="mt-6 rounded-[12px] bg-ash p-4" aria-labelledby="target">
+      <section className="mt-6 tile p-4" aria-labelledby="target">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 id="target" className="text-[11px] uppercase tracking-[0.14em] text-ink-3">
+          <h2 id="target" className="text-[10px] uppercase tracking-[0.16em] text-ink-3">
             Target
           </h2>
           <form action={setCourseTarget} className="flex items-center gap-2">
@@ -77,14 +77,14 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
         </p>
 
         {target && Math.abs(target.weightTotal - 100) > 0.01 && (
-          <p className="tabular mt-2 text-[12px] text-ochre">
+          <p className="tabular mt-2 text-[12px] text-clay">
             Weights add up to {formatPercent(target.weightTotal)}, not 100%.
           </p>
         )}
       </section>
 
       <section className="mt-8" aria-labelledby="assessments">
-        <h2 id="assessments" className="text-[11px] uppercase tracking-[0.14em] text-ink-3">
+        <h2 id="assessments" className="text-[10px] uppercase tracking-[0.16em] text-ink-3">
           Assessments
         </h2>
 
@@ -127,7 +127,7 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
 
         {assessments.length === 0 && <p className="mt-2 text-[13px] text-ink-2">None yet.</p>}
 
-        <form action={addAssessment} className="mt-4 space-y-2 rounded-[12px] bg-ash p-4">
+        <form action={addAssessment} className="mt-4 space-y-2 tile p-4">
           <input type="hidden" name="courseId" value={course.id} />
           <input
             name="title"

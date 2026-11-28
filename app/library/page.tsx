@@ -17,16 +17,17 @@ export default async function Library() {
   const [projects, links, logs] = await Promise.all([store.listProjects(), store.listLinks(), store.listLogs()]);
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.02em]">Library</h1>
-      <p className="mt-2 text-[13px] text-ink-2">Projects, links, and the trail you leave.</p>
 
-      <Link href="/log" className="press tile mt-6 flex items-center gap-4 p-4">
+      <Link href="/log" className="press mt-6 flex items-center gap-4 border-y border-rule py-3.5">
         <div className="min-w-0 flex-1">
-          <p className="text-[10px] uppercase tracking-[0.14em] text-ink-3">Journal</p>
-          <p className="mt-1 text-[15px]">{logs.length} entries</p>
+          <p className="text-[10px] uppercase tracking-[0.16em] text-ink-3">Log</p>
+          <p className="mt-1 text-[15px]">
+            {logs.length} {logs.length === 1 ? "entry" : "entries"}
+          </p>
         </div>
-        <ArrowUpRight size={18} strokeWidth={1.6} className="shrink-0 text-ink-3" aria-hidden />
+        <ArrowUpRight size={17} strokeWidth={1.5} className="shrink-0 text-ink-3" aria-hidden />
       </Link>
 
       <section className="mt-9" aria-labelledby="projects">
@@ -34,9 +35,7 @@ export default async function Library() {
           Projects
         </h2>
 
-        {projects.length === 0 ? (
-          <p className="mt-3 text-[13px] text-ink-2">Nothing here yet.</p>
-        ) : (
+        {projects.length === 0 ? null : (
           <ul className="mt-1">
             {projects.map((p) => {
               const next = NEXT[p.status];
@@ -127,9 +126,7 @@ export default async function Library() {
           Links
         </h2>
 
-        {links.length === 0 ? (
-          <p className="mt-3 text-[13px] text-ink-2">Keep the things you keep reopening here.</p>
-        ) : (
+        {links.length === 0 ? null : (
           <ul className="mt-1">
             {links.map((l) => (
               <li key={l.id} className="flex items-center gap-3 border-b border-rule py-3.5">

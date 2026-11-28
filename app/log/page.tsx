@@ -10,12 +10,12 @@ export const dynamic = "force-dynamic";
 
 const CATEGORIES = ["Course", "Self-study", "Project", "Reading", "Practice", "Talk"];
 const DOT: Record<string, string> = {
-  Course: "bg-teal",
-  "Self-study": "bg-peri",
-  Project: "bg-amber",
-  Reading: "bg-teal",
-  Practice: "bg-coral",
-  Talk: "bg-peri",
+  Course: "bg-accent",
+  "Self-study": "bg-steel",
+  Project: "bg-clay",
+  Reading: "bg-accent",
+  Practice: "bg-accent",
+  Talk: "bg-steel",
 };
 
 function monthKey(day: string): string {
@@ -40,30 +40,29 @@ export default async function Log() {
   }
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <div className="flex items-baseline justify-between">
         <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.02em]">Log</h1>
         <div className="flex gap-4">
-          <Link href="/api/log/export" className="text-[12px] text-ink-3 underline underline-offset-4">
+          <Link href="/api/log/export" className="text-[12px] text-ink-3 underline decoration-rule underline-offset-4 hover:text-ink">
             Markdown
           </Link>
           <PrintButton>PDF</PrintButton>
         </div>
       </div>
-      <p className="mt-2 text-[13px] text-ink-2">What you actually did, one line at a time.</p>
 
-      <section className="tile mt-6 p-4">
+      <div className="mt-8">
         <Heatmap counts={counts} today={today} weeks={26} />
-      </section>
+      </div>
 
-      <form action={addLog} className="tile mt-4 space-y-2 p-4">
+      <form action={addLog} className="tile mt-8 space-y-2 p-4">
         <textarea
           name="text"
           required
           rows={2}
           placeholder="What did you do?"
           aria-label="Entry"
-          className="w-full resize-none rounded-[12px] border border-rule bg-paper px-3 py-2.5 text-[15px]"
+          className="w-full resize-none rounded-[10px] border border-rule bg-paper px-3 py-2.5 text-[15px]"
         />
         <div className="grid grid-cols-2 gap-2">
           <input

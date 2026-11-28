@@ -1,35 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #f7f5ef;
-  --color-ink: #101b2b;
-  --color-ink-2: #4c5563;
-  --color-ink-3: #6f7684;
-  --color-rule: #e2ddd1;
-  --color-ash: #efece2;
+  --color-paper: #f6f2e9;
+  --color-ink: #16130f;
+  --color-ink-2: #514b43;
+  --color-ink-3: #6f685f;
+  --color-rule: #ddd5c7;
+  --color-ash: #efe9dd;
 
-  /* Synesis palette, taken from the mark. */
-  --color-navy: #101b2b;
-  --color-teal: #1f9c7c;
-  --color-peri: #5a6bd8;
-  --color-amber: #c98a12;
-  --color-coral: #d4553f;
+  /* Cardinal, warm clay, cool steel. One accent, two quiet secondaries. */
+  --color-accent: #8c1515;
+  --color-clay: #9a5f28;
+  --color-steel: #5c6470;
 
-  /* Old names kept so the study screens keep working. */
-  --color-oxblood: #d4553f;
-  --color-ochre: #c98a12;
-  --color-stone: #8a9099;
-
-  --heat-0: #e6e1d5;
-  --heat-1: #c6ecdf;
-  --heat-2: #79d3b6;
-  --heat-3: #33b08c;
-  --heat-4: #0f7d61;
+  --heat-0: #e5ded0;
+  --heat-1: #eed8d1;
+  --heat-2: #d9a59a;
+  --heat-3: #b96a5d;
+  --heat-4: #8c1515;
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-newsreader), Georgia, serif;
 
-  --radius-card: 12px;
+  --radius-card: 14px;
   --radius-control: 10px;
 }
 
@@ -71,9 +64,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-teal);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -96,22 +89,19 @@
       opacity 150ms cubic-bezier(0.2, 0, 0, 1);
   }
   .press:active {
-    transform: scale(0.98);
+    transform: scale(0.985);
   }
 
-  /* iOS-style frosted surface: works on black and on paper. */
-  .glass {
-    background: color-mix(in srgb, var(--color-paper) 68%, transparent);
-    backdrop-filter: blur(24px) saturate(1.6);
-    -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    border: 1px solid color-mix(in srgb, var(--color-ink) 11%, transparent);
-  }
-
-  /* The one card style: hero, due list, tiles. */
+  /* The one raised surface. */
   .tile {
     background: var(--color-ash);
-    border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
-    border-radius: 18px;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+  }
+
+  /* Hairline list used for due items, self-study, projects. */
+  .rows > * + * {
+    border-top: 1px solid var(--color-rule);
   }
 
   .heat {
@@ -134,7 +124,7 @@
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -143,7 +133,7 @@
 }
 
 .rise {
-  animation: rise 200ms cubic-bezier(0.2, 0, 0, 1) both;
+  animation: rise 180ms cubic-bezier(0.2, 0, 0, 1) both;
 }
 
 dialog.sheet {
@@ -152,40 +142,34 @@ dialog.sheet {
   max-width: 520px;
   border: 0;
   border-top: 1px solid var(--color-rule);
-  border-radius: 24px 24px 0 0;
+  border-radius: 18px 18px 0 0;
   background: var(--color-paper);
   padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
   color: var(--color-ink);
 }
 
 dialog.sheet::backdrop {
-  background: rgb(16 27 43 / 0.45);
+  background: rgb(22 19 15 / 0.45);
 }
 
 /* Dark mode is a token swap, not a second design. True black: this is an OLED phone. */
 .dark {
   --color-paper: #000000;
-  --color-ink: #f2f0e8;
-  --color-ink-2: #a7adb8;
-  --color-ink-3: #7c8390;
-  --color-rule: #1a1f26;
-  --color-ash: #0b0f14;
+  --color-ink: #f0ece3;
+  --color-ink-2: #a49d93;
+  --color-ink-3: #7b746b;
+  --color-rule: #1e1b18;
+  --color-ash: #0b0a09;
 
-  --color-navy: #0f1b2a;
-  --color-teal: #3fc6a0;
-  --color-peri: #9aa8f7;
-  --color-amber: #f0b33c;
-  --color-coral: #f2705c;
+  --color-accent: #c44f42;
+  --color-clay: #c98a5a;
+  --color-steel: #8b93a1;
 
-  --color-oxblood: #f2705c;
-  --color-ochre: #f0b33c;
-  --color-stone: #5c636f;
-
-  --heat-0: #131a20;
-  --heat-1: #143a32;
-  --heat-2: #1c6b58;
-  --heat-3: #2fa184;
-  --heat-4: #3fc6a0;
+  --heat-0: #141110;
+  --heat-1: #331a16;
+  --heat-2: #57241d;
+  --heat-3: #7e2c22;
+  --heat-4: #a83a30;
 
   color-scheme: dark;
 }
@@ -195,12 +179,12 @@ dialog.sheet::backdrop {
 }
 
 dialog.sheet[open] {
-  animation: sheet-in 200ms cubic-bezier(0.2, 0, 0, 1);
+  animation: sheet-in 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes sheet-in {
   from {
-    transform: translateY(16px);
+    transform: translateY(12px);
     opacity: 0;
   }
 }

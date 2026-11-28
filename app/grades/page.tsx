@@ -19,7 +19,7 @@ export default async function Grades() {
   const st = standing(semesters, target);
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.02em]">Grades</h1>
 
       <section className="mt-6" aria-labelledby="cgpa">

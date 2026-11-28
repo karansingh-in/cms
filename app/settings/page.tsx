@@ -20,7 +20,7 @@ export default async function Settings() {
   ];
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.02em]">Settings</h1>
 
       <section className="mt-8" aria-labelledby="you">

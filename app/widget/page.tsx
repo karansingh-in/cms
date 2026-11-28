@@ -27,27 +27,26 @@ export default async function Widget() {
   const next = due[0];
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <Link href="/settings" className="text-[13px] text-ink-3">
         Settings
       </Link>
       <h1 className="mt-4 font-display text-[32px] leading-[1.05] tracking-[-0.02em]">Widget</h1>
-      <p className="mt-2 text-[13px] text-ink-2">
-        A PWA cannot draw on the OS home screen itself. Keep this page as the design, and rebuild it in
-        Scriptable (iOS) or KWGT (Android) with the same numbers.
+      <p className="mt-2 max-w-[46ch] text-[13px] leading-relaxed text-ink-2">
+        Rebuild these in Scriptable or KWGT. A PWA cannot draw on the home screen itself.
       </p>
 
       <div className="mt-8 flex flex-wrap items-start gap-5">
-        <div className="relative h-[170px] w-[170px] overflow-hidden rounded-[26px] bg-ash p-4 ring-1 ring-ink/10">
+        <div className="relative h-[170px] w-[170px] overflow-hidden rounded-[20px] bg-ash p-4 ring-1 ring-ink/10">
           <Mark size={26} />
           <p className="tabular mt-3 font-display text-[40px] leading-none">{due.length}</p>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-ink-3">due</p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-ink-3">due</p>
           <p className="absolute inset-x-4 bottom-3 truncate text-[12px] text-ink-2">
             {next ? next.title : "Clear"}
           </p>
         </div>
 
-        <div className="relative h-[170px] w-[360px] max-w-full overflow-hidden rounded-[26px] bg-ash p-4 ring-1 ring-ink/10">
+        <div className="relative h-[170px] w-[360px] max-w-full overflow-hidden rounded-[20px] bg-ash p-4 ring-1 ring-ink/10">
           <div className="flex items-start justify-between">
             <div>
               <div className="flex items-center gap-2">
@@ -60,7 +59,7 @@ export default async function Widget() {
               </p>
             </div>
             <div className="text-right">
-              <p className="tabular font-display text-[26px] leading-none text-teal">{streakDays}</p>
+              <p className="tabular font-display text-[26px] leading-none text-accent">{streakDays}</p>
               <p className="text-[9px] uppercase tracking-[0.12em] text-ink-3">streak</p>
             </div>
           </div>
@@ -78,11 +77,6 @@ export default async function Widget() {
           </ul>
         </div>
       </div>
-
-      <p className="mt-8 text-[12px] leading-relaxed text-ink-3">
-        2×2 answers one question: how much is left. 4×2 answers the morning question: who am I today, what is the
-        streak, and what is next.
-      </p>
     </main>
   );
 }

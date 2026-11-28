@@ -13,7 +13,7 @@ export default function SubjectSheet() {
       <button
         onClick={() => dialog.current?.showModal()}
         aria-label="Add subject"
-        className="press glass grid size-11 shrink-0 place-items-center rounded-full text-ink-2"
+        className="press -mr-2 grid size-10 shrink-0 place-items-center rounded-full text-ink-3 hover:text-ink"
       >
         <Plus size={18} strokeWidth={1.9} aria-hidden />
       </button>

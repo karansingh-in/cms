@@ -11,16 +11,16 @@ import { buildTriage, type Priority } from "@/lib/triage";
 export const dynamic = "force-dynamic";
 
 const SPINE: Record<Priority, string> = {
-  high: "border-oxblood",
-  medium: "border-ochre",
+  high: "border-accent",
+  medium: "border-clay",
   // The tail carries no spine at all: it is already named in the skip block.
   low: "border-transparent",
 };
 
 const FILL: Record<Priority, string> = {
-  high: "bg-oxblood",
-  medium: "bg-ochre",
-  low: "bg-stone",
+  high: "bg-accent",
+  medium: "bg-clay",
+  low: "bg-steel",
 };
 
 export default async function ModulePage({ params }: { params: Promise<{ code: string; module: string }> }) {
@@ -41,7 +41,7 @@ export default async function ModulePage({ params }: { params: Promise<{ code: s
   const share = triage.totalMinutes > 0 ? doneMinutes / triage.totalMinutes : 0;
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <Link href={`/study/${subject.code}`} className="text-[13px] text-ink-3">
         {subject.name}
       </Link>
@@ -84,13 +84,13 @@ export default async function ModulePage({ params }: { params: Promise<{ code: s
                       className="press -my-2 grid size-10 place-items-center"
                     >
                       <span
-                        className={`grid size-6 place-items-center rounded-[6px] border ${
-                          isDone ? "border-ink bg-ink" : "border-rule"
+                        className={`grid size-[18px] place-items-center rounded-[4px] border ${
+                          isDone ? "border-accent bg-accent" : "border-ink-3/70"
                         }`}
                       >
                         <Check
-                          size={14}
-                          strokeWidth={2}
+                          size={11}
+                          strokeWidth={2.6}
                           className={isDone ? "text-paper" : "text-transparent"}
                           aria-hidden
                         />
@@ -109,8 +109,8 @@ export default async function ModulePage({ params }: { params: Promise<{ code: s
       </ol>
 
       {skip.length > 0 && (
-        <section className="mt-8 rounded-[12px] bg-ash p-4" aria-labelledby="skip">
-          <h2 id="skip" className="text-[11px] uppercase tracking-[0.14em] text-ink-3">
+        <section className="mt-8 tile p-4" aria-labelledby="skip">
+          <h2 id="skip" className="text-[10px] uppercase tracking-[0.16em] text-ink-3">
             Do not study these
           </h2>
           <ul className="mt-2 space-y-1">

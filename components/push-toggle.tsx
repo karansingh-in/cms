@@ -79,7 +79,7 @@ export default function PushToggle({ configured }: { configured: boolean }) {
         <button
           onClick={disable}
           disabled={busy}
-          className="press rounded-full border border-teal/60 bg-teal/15 px-3.5 py-1.5 text-[12px] text-teal"
+          className="press rounded-full border border-accent/60 bg-accent/15 px-3.5 py-1.5 text-[12px] text-accent"
         >
           On
         </button>

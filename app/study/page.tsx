@@ -13,8 +13,6 @@ import { buildTriage } from "@/lib/triage";
 
 export const dynamic = "force-dynamic";
 
-const BARS = ["bg-teal", "bg-amber", "bg-peri", "bg-coral"];
-
 export default async function Study() {
   const [subjects, running, todaySessions, done, selfCourses] = await Promise.all([
     listSubjects(),
@@ -28,7 +26,7 @@ export default async function Study() {
   const fallback = subjects[0]?.code;
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <div className="flex items-start justify-between gap-4">
         <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.02em]">Study</h1>
         <SubjectSheet />
@@ -48,7 +46,7 @@ export default async function Study() {
               <p className="min-w-0 truncate text-[13px] text-ink-2">
                 {subjects.find((s) => s.code === running.subject)?.name ?? "Unassigned"}
               </p>
-              <span className="size-1.5 shrink-0 rounded-full bg-coral" aria-hidden />
+              <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
             </div>
             <div className="mt-1">
               <RunningClock startedAt={running.startedAt} initialNow={Date.now()} />
@@ -58,7 +56,7 @@ export default async function Study() {
             </form>
           </div>
         ) : (
-          <form action={startSession} className="tile mt-2 flex gap-2 p-2">
+          <form action={startSession} className="mt-2 flex gap-2">
             <label htmlFor="subject" className="sr-only">
               Subject
             </label>
@@ -66,7 +64,7 @@ export default async function Study() {
               id="subject"
               name="subject"
               defaultValue={fallback}
-              className="min-w-0 flex-1 rounded-[10px] border border-rule bg-paper px-3 py-2.5 text-[14px]"
+              className="min-w-0 flex-1 rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
             >
               {subjects.map((s) => (
                 <option key={s.id} value={s.code}>
@@ -75,7 +73,7 @@ export default async function Study() {
               ))}
               <option value="">Unassigned</option>
             </select>
-            <button className="press rounded-[10px] bg-ink px-5 text-[14px] font-medium text-paper">Start</button>
+            <button className="press rounded-[10px] bg-ink px-5 py-2.5 text-[14px] font-medium text-paper">Start</button>
           </form>
         )}
       </section>
@@ -93,11 +91,9 @@ export default async function Study() {
           </span>
         </div>
 
-        {selfCourses.length === 0 ? (
-          <p className="mt-3 text-[13px] text-ink-2">Nothing here yet. Add a course you are working through.</p>
-        ) : (
+        {selfCourses.length === 0 ? null : (
           <ul className="mt-2 space-y-2">
-            {selfCourses.map((c, i) => (
+            {selfCourses.map((c) => (
               <li key={c.id} className="tile p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
@@ -154,7 +150,7 @@ export default async function Study() {
                 <div className="mt-2.5 flex items-center gap-3">
                   <span className="relative h-[5px] flex-1 overflow-hidden rounded-full bg-rule" aria-hidden>
                     <span
-                      className={`absolute inset-y-0 left-0 rounded-full ${BARS[i % BARS.length]}`}
+                      className="absolute inset-y-0 left-0 rounded-full bg-accent"
                       style={{ width: `${Math.round((c.done / c.units) * 100)}%` }}
                     />
                   </span>

@@ -20,7 +20,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ code: 
   const cov = coverage(subject, done);
 
   return (
-    <main className="pt-6">
+    <main className="pt-7">
       <div className="flex items-center justify-between">
         <Link href="/study" className="text-[13px] text-ink-3">
           Study
@@ -50,7 +50,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ code: 
 
       <div className="mt-5 flex items-center gap-3">
         <span className="relative h-[5px] flex-1 overflow-hidden rounded-full bg-rule" aria-hidden>
-          <span className="absolute inset-y-0 left-0 rounded-full bg-teal" style={{ width: `${Math.round(cov.share * 100)}%` }} />
+          <span className="absolute inset-y-0 left-0 rounded-full bg-accent" style={{ width: `${Math.round(cov.share * 100)}%` }} />
         </span>
         <span className="tabular shrink-0 text-[12px] text-ink-3">
           {cov.doneSections}/{cov.sections} sections

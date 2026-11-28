@@ -49,9 +49,9 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
     <>
       <nav
         aria-label="Sections"
-        className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+        className="fixed bottom-0 left-1/2 z-50 w-full max-w-[520px] -translate-x-1/2 border-t border-rule bg-paper pb-[env(safe-area-inset-bottom)]"
       >
-        <div className="glass mx-auto grid h-16 w-full max-w-[496px] grid-cols-5 items-center rounded-[24px] px-1 shadow-[0_18px_40px_-18px_rgb(0_0_0/0.85)]">
+        <div className="mx-auto grid h-[58px] w-full max-w-[520px] grid-cols-5 items-center px-2">
           {tabs.slice(0, 2).map((tab) => (
             <Tab key={tab.href} {...tab} active={isActive(tab.href)} />
           ))}
@@ -60,9 +60,9 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
             <button
               onClick={() => dialog.current?.showModal()}
               aria-label="Quick capture"
-              className="press grid size-[54px] -translate-y-3 place-items-center rounded-full bg-teal text-navy shadow-[0_10px_26px_-8px_rgb(63_198_160/0.8)] ring-[5px] ring-paper"
+              className="press grid size-10 place-items-center rounded-[10px] bg-accent text-paper"
             >
-              <Plus size={24} strokeWidth={2.1} aria-hidden />
+              <Plus size={20} strokeWidth={2.2} aria-hidden />
             </button>
           </div>
 
@@ -83,15 +83,15 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
           if (event.clientY < box.top || event.clientX < box.left || event.clientX > box.right) sheet.close();
         }}
       >
-        <div className="mb-3 grid grid-cols-2 gap-1 rounded-full bg-ash p-1">
+        <div className="mb-4 grid grid-cols-2 gap-1 rounded-[9px] border border-rule p-1">
           {(["task", "log"] as const).map((m) => (
             <button
               key={m}
               type="button"
               onClick={() => setMode(m)}
               aria-pressed={mode === m}
-              className={`press rounded-full py-2 text-[13px] font-medium capitalize ${
-                mode === m ? "bg-ink text-paper" : "text-ink-2"
+              className={`press rounded-[7px] py-2 text-[13px] font-medium ${
+                mode === m ? "bg-accent text-paper" : "text-ink-2"
               }`}
             >
               {m === "task" ? "Due item" : "Log"}
@@ -122,7 +122,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
               autoFocus
               placeholder="What needs doing?"
               aria-label="Title"
-              className="w-full rounded-[12px] border border-rule bg-ash px-3.5 py-3.5 text-[16px]"
+              className="w-full rounded-[10px] border border-rule bg-ash px-3.5 py-3 text-[16px]"
             />
 
             <div className="flex gap-2">
@@ -138,8 +138,8 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
                     if (date.current) date.current.value = chip.value;
                   }}
                   aria-pressed={due === chip.value}
-                  className={`press rounded-full border px-3.5 py-1.5 text-[13px] ${
-                    due === chip.value ? "border-teal bg-teal text-navy" : "border-rule text-ink-2"
+                  className={`press rounded-[8px] border px-3 py-1.5 text-[13px] ${
+                    due === chip.value ? "border-accent bg-accent text-paper" : "border-rule text-ink-2"
                   }`}
                 >
                   {chip.label}
@@ -152,7 +152,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
                 aria-label="Due date"
                 defaultValue={today}
                 onChange={(e) => setDue(e.target.value)}
-                className="tabular min-w-0 flex-1 rounded-full border border-rule bg-ash px-3 py-1.5 text-[13px]"
+                className="tabular min-w-0 flex-1 rounded-[8px] border border-rule bg-ash px-3 py-1.5 text-[13px]"
               />
             </div>
 
@@ -160,7 +160,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
               <select
                 name="course"
                 aria-label="Course"
-                className="min-w-0 flex-1 rounded-[12px] border border-rule bg-ash px-3 py-3 text-[14px]"
+                className="min-w-0 flex-1 rounded-[10px] border border-rule bg-ash px-3 py-3 text-[14px]"
               >
                 <option value="">Personal</option>
                 {courses.map((c) => (
@@ -171,7 +171,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
               </select>
               <button
                 disabled={pending}
-                className="press rounded-[12px] bg-ink px-5 py-3 text-[14px] font-medium text-paper disabled:opacity-50"
+                className="press rounded-[10px] bg-accent px-5 py-3 text-[14px] font-medium text-paper disabled:opacity-50"
               >
                 Add
               </button>
@@ -196,7 +196,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
               rows={2}
               placeholder="What did you do?"
               aria-label="Entry"
-              className="w-full resize-none rounded-[12px] border border-rule bg-ash px-3.5 py-3 text-[16px]"
+              className="w-full resize-none rounded-[10px] border border-rule bg-ash px-3.5 py-3 text-[16px]"
             />
             <div className="flex gap-2">
               <input
@@ -204,14 +204,14 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
                 placeholder="Category"
                 aria-label="Category"
                 list="capture-categories"
-                className="min-w-0 flex-1 rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+                className="min-w-0 flex-1 rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
               />
               <input
                 name="day"
                 type="date"
                 defaultValue={today}
                 aria-label="Day"
-                className="tabular rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+                className="tabular rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
               />
             </div>
             <input
@@ -219,7 +219,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
               type="url"
               placeholder="Link (optional)"
               aria-label="Link"
-              className="w-full rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+              className="w-full rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
             />
             <datalist id="capture-categories">
               {["Course", "Self-study", "Project", "Reading", "Practice", "Talk"].map((c) => (
@@ -228,7 +228,7 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
             </datalist>
             <button
               disabled={pending}
-              className="press w-full rounded-[12px] bg-teal py-3 text-[14px] font-semibold text-navy disabled:opacity-50"
+              className="press w-full rounded-[10px] bg-accent py-3 text-[14px] font-medium text-paper disabled:opacity-50"
             >
               Log it
             </button>
@@ -253,12 +253,12 @@ function Tab({
   return (
     <Link href={href} aria-current={active ? "page" : undefined} className="flex justify-center">
       <span
-        className={`press flex h-[52px] w-[62px] flex-col items-center justify-center gap-0.5 rounded-[16px] ${
-          active ? "bg-ink text-paper" : "text-ink-3"
+        className={`press flex h-[50px] w-[64px] flex-col items-center justify-center gap-1 ${
+          active ? "text-accent" : "text-ink-3"
         }`}
       >
         <Icon size={19} strokeWidth={active ? 2 : 1.6} aria-hidden />
-        <span className="text-[10px] leading-none tracking-[0.01em]">{label}</span>
+        <span className="text-[10px] leading-none">{label}</span>
       </span>
     </Link>
   );

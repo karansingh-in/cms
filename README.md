@@ -49,7 +49,7 @@ For real data, set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` and run `supab
 
 ## Design
 
-Newsreader for display, Geist for everything else, tabular figures on every number. True black by default (this is an OLED phone), paper as the option. The palette comes from the mark: navy, mint, amber, periwinkle, off-white. Mint is the accent; amber marks what is close. Hairlines instead of shadows, glass only on the tab bar, 8pt spacing, 44dp touch targets.
+Newsreader for display, Geist for everything else, tabular figures on every number. True black by default (this is an OLED phone), warm paper as the option. Cardinal `#8C1515` is the single accent, with warm clay and cool steel only where two things must be told apart. The log is a bare grid: no legend, no counters. Hairlines instead of shadows, no glass, 8pt spacing, 44dp touch targets.
 
 ## Adding a subject
 

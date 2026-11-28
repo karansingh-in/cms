@@ -13,7 +13,7 @@ export default function SubjectSheet() {
       <button
         onClick={() => dialog.current?.showModal()}
         aria-label="Add subject"
-        className="press -mr-2 grid size-10 shrink-0 place-items-center rounded-full text-ink-3 hover:text-ink"
+        className="press -mr-1 grid size-10 shrink-0 place-items-center rounded-[11px] border border-rule text-ink-2 hover:text-ink"
       >
         <Plus size={18} strokeWidth={1.9} aria-hidden />
       </button>
@@ -46,14 +46,14 @@ export default function SubjectSheet() {
               required
               placeholder="Subject name"
               aria-label="Subject name"
-              className="w-full rounded-[12px] border border-rule bg-ash px-3 py-3 text-[15px]"
+              className="w-full rounded-[10px] border border-rule bg-ash px-3 py-3 text-[15px]"
             />
             <input
               name="code"
               required
               placeholder="Code"
               aria-label="Code"
-              className="w-full rounded-[12px] border border-rule bg-ash px-3 py-3 text-[15px]"
+              className="w-full rounded-[10px] border border-rule bg-ash px-3 py-3 text-[15px]"
             />
           </div>
 
@@ -64,7 +64,7 @@ export default function SubjectSheet() {
                 name="examDate"
                 type="date"
                 required
-                className="tabular rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+                className="tabular rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
               />
             </label>
             <label className="flex flex-col gap-1 text-[10px] uppercase tracking-[0.12em] text-ink-3">
@@ -75,7 +75,7 @@ export default function SubjectSheet() {
                 min={0}
                 max={12}
                 placeholder="4"
-                className="tabular rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+                className="tabular rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
               />
             </label>
           </div>
@@ -85,10 +85,10 @@ export default function SubjectSheet() {
             rows={5}
             placeholder="Topics, one per line"
             aria-label="Topics"
-            className="w-full resize-none rounded-[12px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
+            className="w-full resize-none rounded-[10px] border border-rule bg-ash px-3 py-2.5 text-[14px]"
           />
 
-          <button className="press w-full rounded-[12px] bg-ink py-3 text-[14px] font-medium text-paper">Add subject</button>
+          <button className="press w-full rounded-[10px] bg-ink py-3 text-[14px] font-medium text-paper">Add subject</button>
         </form>
       </dialog>
     </>

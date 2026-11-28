@@ -13,11 +13,11 @@
   --color-clay: #9a5f28;
   --color-steel: #5c6470;
 
-  --heat-0: #e5ded0;
-  --heat-1: #eed8d1;
-  --heat-2: #d9a59a;
-  --heat-3: #b96a5d;
-  --heat-4: #8c1515;
+  --heat-0: #e7e0d2;
+  --heat-1: #e7d0c7;
+  --heat-2: #d9b2a7;
+  --heat-3: #c08c7f;
+  --heat-4: #a2574a;
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-newsreader), Georgia, serif;
@@ -165,11 +165,11 @@ dialog.sheet::backdrop {
   --color-clay: #c98a5a;
   --color-steel: #8b93a1;
 
-  --heat-0: #141110;
-  --heat-1: #331a16;
-  --heat-2: #57241d;
-  --heat-3: #7e2c22;
-  --heat-4: #a83a30;
+  --heat-0: #191614;
+  --heat-1: #2a1b18;
+  --heat-2: #3d2420;
+  --heat-3: #542e28;
+  --heat-4: #713c33;
 
   color-scheme: dark;
 }

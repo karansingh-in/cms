@@ -60,9 +60,9 @@ export default function TabBar({ courses }: { courses: { id: string; name: strin
             <button
               onClick={() => dialog.current?.showModal()}
               aria-label="Quick capture"
-              className="press grid size-10 place-items-center rounded-[10px] bg-accent text-paper"
+              className="press -translate-y-4 grid size-[52px] place-items-center rounded-[17px] bg-accent text-paper shadow-[0_10px_24px_-8px_rgba(0,0,0,0.55)] ring-4 ring-paper"
             >
-              <Plus size={20} strokeWidth={2.2} aria-hidden />
+              <Plus size={25} strokeWidth={2.1} aria-hidden />
             </button>
           </div>
 

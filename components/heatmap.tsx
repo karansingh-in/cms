@@ -29,7 +29,7 @@ export default function Heatmap({
     <div
       role="img"
       aria-label={`${total} ${total === 1 ? "entry" : "entries"} over the last ${weeks} weeks`}
-      className="grid max-w-[340px] auto-cols-fr grid-flow-col grid-rows-7 gap-[3px]"
+      className="grid w-full auto-cols-fr grid-flow-col grid-rows-7 gap-[3px]"
     >
       {days.map((day) => {
         if (day > today)
